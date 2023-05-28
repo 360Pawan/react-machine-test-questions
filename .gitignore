@@ -33,3 +33,40 @@ countdown/.vercel
 # typescript
 countdown/*.tsbuildinfo
 countdown/next-env.d.ts
+
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+pagination/node_modules
+pagination/.pnp
+pagination/.pnp.js
+
+# testing
+/coverage
+
+# next.js
+pagination/.next/
+pagination/out/
+
+# production
+pagination/build
+
+# misc
+pagination/.DS_Store
+pagination/*.pem
+
+# debug
+pagination/npm-debug.log*
+pagination/yarn-debug.log*
+pagination/yarn-error.log*
+
+# local env files
+pagination/.env*.local
+
+# vercel
+pagination/.vercel
+
+# typescript
+pagination/*.tsbuildinfo
+pagination/next-env.d.ts
