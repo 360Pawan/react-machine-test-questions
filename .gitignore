@@ -1,0 +1,35 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+countdown/node_modules
+countdown/.pnp
+countdown/.pnp.js
+
+# testing
+countdown/coverage
+
+# next.js
+countdown/.next/
+countdown/out/
+
+# production
+countdown/build
+
+# misc
+countdown/.DS_Store
+countdown/*.pem
+
+# debug
+countdown/countdown/npm-debug.log*
+countdown/yarn-debug.log*
+countdown/yarn-error.log*
+
+# local env files
+countdown/.env*.local
+
+# vercel
+countdown/.vercel
+
+# typescript
+countdown/*.tsbuildinfo
+countdown/next-env.d.ts
