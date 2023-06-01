@@ -7,46 +7,90 @@ export const useTraverseTree = () => {
     item: string,
     isFolder: boolean
   ): Explorer => {
-    if (tree?.id === folderId && tree?.isFolder) {
-      const newItem = {
-        id: new Date().getTime(),
-        name: item,
-        isFolder,
-        items: [],
-      };
+    // if (tree?.id === folderId && tree?.isFolder) {
+    //   const newItem = {
+    //     id: new Date().getTime(),
+    //     name: item,
+    //     isFolder,
+    //     items: [],
+    //   };
+    //   const updatedItems = [newItem, ...(tree?.items ?? [])];
+    //   return { ...tree, items: updatedItems };
+    // }
+    // if (tree?.items && tree?.items?.length > 0) {
+    //   const updatedItems = (tree?.items ?? [])?.map((obj) =>
+    //     insertNode(obj, folderId, item, isFolder)
+    //   );
+    //   return { ...tree, items: updatedItems };
+    // }
+    // return tree;
 
-      const updatedItems = [newItem, ...(tree?.items ?? [])];
+    const memorized: { [id: number]: Explorer } = {};
 
-      return { ...tree, items: updatedItems };
-    }
+    const insertMemorizedNode = (node: Explorer): Explorer => {
+      const nodeId = node?.id;
 
-    if (tree?.items && tree?.items?.length > 0) {
-      const updatedItems = (tree?.items ?? [])?.map((obj) =>
-        insertNode(obj, folderId, item, isFolder)
-      );
+      if (memorized[nodeId]) {
+        return memorized[nodeId];
+      }
 
-      return { ...tree, items: updatedItems };
-    }
+      const newNode = { ...node };
 
-    return tree;
+      if (newNode.id === folderId && newNode.isFolder) {
+        const newItem = {
+          id: new Date().getTime(),
+          name: item,
+          isFolder,
+          items: [],
+        };
+
+        newNode.items = [newItem, ...(newNode?.items ?? [])];
+      }
+
+      if (newNode.items && newNode.items.length > 0) {
+        newNode.items = newNode.items.map((obj) => insertMemorizedNode(obj));
+      }
+
+      memorized[nodeId] = newNode;
+
+      return newNode;
+    };
+
+    const updatedTree = insertMemorizedNode(tree);
+
+    return updatedTree;
   };
 
-  const deleteNode = (tree: Explorer, folderId: number) => {
-    if (tree?.id === folderId) {
-      console.log("Delete the", tree?.name);
+  const deleteNode = (tree: Explorer, folderId: number): Explorer | any => {
+    const memorized: { [id: number]: Explorer } = {};
 
-      let latestNode: Explorer[] = [];
-      latestNode = (tree?.items ?? [])?.filter((item) => item?.id !== folderId);
+    const deleteMemorizedNode = (node: Explorer): Explorer | any => {
+      const nodeId = node.id;
 
-      console.log(latestNode);
+      if (memorized[nodeId]) {
+        return memorized[nodeId];
+      }
 
-      return { ...tree, items: latestNode };
-    }
+      const newNode = { ...node };
 
-    let latestNode: Explorer[] = [];
-    latestNode = (tree?.items ?? [])?.map((obj) => deleteNode(obj, folderId));
+      if (newNode.id === folderId) {
+        return null;
+      }
 
-    return { ...tree, items: latestNode };
+      if (newNode.items && newNode.items.length > 0) {
+        newNode.items = newNode.items
+          .map((obj) => deleteMemorizedNode(obj))
+          .filter(Boolean);
+      }
+
+      memorized[nodeId] = newNode;
+
+      return newNode;
+    };
+
+    const updatedTree = deleteMemorizedNode(tree);
+
+    return updatedTree;
   };
 
   return { insertNode, deleteNode };

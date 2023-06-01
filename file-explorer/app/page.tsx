@@ -28,11 +28,15 @@ export default function Home() {
 
   return (
     <div className="max-w-md p-5 mx-auto">
-      <Folder
-        handleInsertNode={handleInsertNode}
-        handleDeleteNode={handleDeleteNode}
-        explorer={explorerData}
-      />
+      {explorerData !== null ? (
+        <Folder
+          handleInsertNode={handleInsertNode}
+          handleDeleteNode={handleDeleteNode}
+          explorer={explorerData}
+        />
+      ) : (
+        <p>No folder to show</p>
+      )}
     </div>
   );
 }
