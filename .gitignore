@@ -2,6 +2,7 @@
 
 # dependencies
 countdown/node_modules
+insert-text-in-document/node_modules
 countdown/.pnp
 countdown/.pnp.js
 
