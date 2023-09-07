@@ -7,14 +7,16 @@ function App() {
   const [highLightedText, setHighlightedText] = useState("");
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && !highLightedText) {
       const inputElement = e.currentTarget as HTMLTextAreaElement;
       const newText = inputElement.value;
 
-      setDocumentText(`${documentText} ${newText}`);
       setText("");
       setHighlightedText(newText);
-      setTimeout(() => setHighlightedText(""), 5000);
+      setTimeout(() => {
+        setDocumentText(`${documentText} ${newText}`);
+        setHighlightedText("");
+      }, 2000);
     }
   };
 
@@ -25,7 +27,7 @@ function App() {
           className="rounded-lg shadow-md focus:outline-none p-5"
           name="text"
           cols={50}
-          rows={5}
+          rows={2}
           placeholder="Enter your text here"
           onKeyDown={handleKeyDown}
           value={text}
@@ -34,6 +36,11 @@ function App() {
         <p>Document</p>
         <div className="border-slate-00 p-5 shadow-md rounded-lg w-full">
           {documentText}
+          {highLightedText ? (
+            <span className="bg-blue-500 text-white animate-pulse">
+              {highLightedText}
+            </span>
+          ) : null}
         </div>
       </div>
     </div>

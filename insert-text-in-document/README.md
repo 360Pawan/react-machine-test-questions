@@ -1,27 +1,17 @@
-# React + TypeScript + Vite
+# Insert Text In Document
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Given a textarea and a document box, Insert the text in the document in such a way that it HIGHLIGHTS the text content which is most recently added to the document.
 
-Currently, two official plugins are available:
+![insert text in document](https://res.cloudinary.com/algochurn/image/upload/v1685263123/ezgif.com-crop_dac8u8.gif)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### User stories
 
-## Expanding the ESLint configuration
+1. The <Document /> component should contain two major elements, textarea and a div acting as the document container.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+2. On enter press, the text inside of the textarea should be added to the document.
 
-- Configure the top-level `parserOptions` property like this:
+3. When the text is added inside of the document, the recently added text should have a blue highlight, which should fade away after 2 seconds.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+4. Textarea field should be cleared after the text is submitted / when enter is pressed.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+5. Optimize your component for best performance.
