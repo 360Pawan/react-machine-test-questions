@@ -24,6 +24,19 @@ function App() {
 
   console.log(8);
 
+  const lol = {
+    name: "Andrew Tate",
+    first() {
+      console.log(this.name + " Loves AngularJS");
+    },
+    second: () => {
+      console.log(this.name + " Loves himself. F Frameworks.");
+    },
+  };
+
+  lol.first();
+  lol.second();
+
   return <h1>Guess the Output I</h1>;
 }
 
